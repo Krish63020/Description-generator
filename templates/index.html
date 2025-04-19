@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Description Generator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Description Generator</h1>
+        <form id="job-form">
+            <div class="form-group">
+                <label for="recruiter-type">Recruiter Type: <span class="required">*</span></label>
+                <select id="recruiter-type" class="form-control" required>
+                    <option value="" disabled selected>Select Type</option>
+                    <option value="Adept">Adept</option>
+                    <option value="Entrepreneur">Entrepreneur</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="company-name">Company Name: <span class="required">*</span></label>
+                <input type="text" id="company-name" class="form-control" placeholder="Enter your company name" required>
+            </div>
+
+            <div class="form-group">
+                <label>Post For: <span class="required">*</span></label>
+                <div class="radio-group">
+                    <label class="radio-label">
+                        <input type="radio" name="post-for" value="For my company" checked> For my company
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="post-for" value="For myself"> For myself
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Work Type: <span class="required">*</span></label>
+                <select id="work-type" class="form-control" required>
+                    <option value="" disabled selected>Select work type</option>
+                    <option value="Internship">Internship</option>
+                    <option value="Full-Time">Full-Time</option>
+                    <option value="Part-Time">Part-Time</option>
+                    <option value="Contract">Contract</option>
+                    <option value="Project">Project</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Eligibility Criteria: <span class="required">*</span></label>
+                <div class="radio-group">
+                    <label class="radio-label">
+                        <input type="radio" name="eligibility" value="Freshers" checked> Freshers
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="eligibility" value="Experienced"> Experienced
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Location: <span class="required">*</span></label>
+                <div class="radio-group">
+                    <label class="radio-label">
+                        <input type="radio" name="location" value="Onsite" checked> Onsite
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="location" value="Remote"> Remote
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="address">Address: <span class="required">*</span></label>
+                <input type="text" id="address" class="form-control" placeholder="Enter address" required>
+            </div>
+
+            <div class="form-group">
+                <label for="title">Title: <span class="required">*</span></label>
+                <input type="text" id="title" class="form-control" placeholder="Enter job title" required>
+            </div>
+
+            <div class="form-group">
+                <label for="package">Package: <span class="required">*</span></label>
+                <input type="text" id="package" class="form-control" placeholder="Enter salary/compensation package" required>
+            </div>
+
+            <div class="form-group">
+                <label for="submission-date">Last Date for Submission: <span class="required">*</span></label>
+                <input type="date" id="submission-date" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="vacancies">No of Vacancies: <span class="required">*</span></label>
+                <div class="number-input">
+                    <input type="number" id="vacancies" class="form-control" value="1" min="1" required>
+                    <div class="number-buttons">
+                        <button type="button" class="increment">+</button>
+                        <button type="button" class="decrement">-</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="skills">Skills: <span class="required">*</span></label>
+                <div class="tags-input">
+                    <input type="text" id="skills-input" class="form-control" placeholder="Type skills and press Enter">
+                    <div id="skills-tags" class="tags-container"></div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="keywords">Keywords: <span class="required">*</span></label>
+                <div class="tags-input">
+                    <input type="text" id="keywords-input" class="form-control" placeholder="Type keywords and press Enter">
+                    <div id="keywords-tags" class="tags-container"></div>
+                </div>
+            </div>
+
+            <div class="form-group generate-btn-container">
+                <button type="button" id="generate-btn" class="btn-purple">
+                    <i class="fas fa-robot"></i> Generate with AI
+                </button>
+            </div>
+
+            <div class="form-group">
+                <label for="description">Job Description: <span class="required">*</span></label>
+                <div class="editor-toolbar">
+                    <select id="format-select">
+                        <option value="normal">Normal</option>
+                        <option value="h1">Heading 1</option>
+                        <option value="h2">Heading 2</option>
+                        <option value="h3">Heading 3</option>
+                    </select>
+                    <button type="button" data-command="bold" class="toolbar-btn"><i class="fas fa-bold"></i></button>
+                    <button type="button" data-command="italic" class="toolbar-btn"><i class="fas fa-italic"></i></button>
+                    <button type="button" data-command="underline" class="toolbar-btn"><i class="fas fa-underline"></i></button>
+                    <button type="button" data-command="strikeThrough" class="toolbar-btn"><i class="fas fa-strikethrough"></i></button>
+                    <button type="button" data-command="insertUnorderedList" class="toolbar-btn"><i class="fas fa-list-ul"></i></button>
+                    <button type="button" data-command="insertOrderedList" class="toolbar-btn"><i class="fas fa-list-ol"></i></button>
+                    <button type="button" data-command="justifyLeft" class="toolbar-btn"><i class="fas fa-align-left"></i></button>
+                    <button type="button" data-command="justifyCenter" class="toolbar-btn"><i class="fas fa-align-center"></i></button>
+                    <button type="button" data-command="justifyRight" class="toolbar-btn"><i class="fas fa-align-right"></i></button>
+                    <button type="button" data-command="decreaseFontSize" class="toolbar-btn"><i class="fas fa-text-height fa-rotate-180"></i></button>
+                    <button type="button" data-command="increaseFontSize" class="toolbar-btn"><i class="fas fa-text-height"></i></button>
+                    <button type="button" data-command="removeFormat" class="toolbar-btn"><i class="fas fa-eraser"></i></button>
+                </div>
+                <div id="description" class="editor-content" contenteditable="true" placeholder="Write a professional job description..."></div>
+            </div>
+
+            <div class="button-group">
+                <button type="button" id="download-btn" class="btn-green">
+                    <i class="fas fa-download"></i> Download Description
+                </button>
+                <button type="button" id="reset-btn" class="btn-blue">
+                    <i class="fas fa-redo"></i> Reset
+                </button>
+                <button type="button" id="create-post-btn" class="btn-red">
+                    <i class="fas fa-rocket"></i> Create Post
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
